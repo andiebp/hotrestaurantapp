@@ -11,8 +11,8 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 
-var customerWait = [{}];
-var customerReady = [{}];
+var customerWait = [];
+var customerReady = [];
 
 //Creates routes to go to each page
 
@@ -29,16 +29,30 @@ app.get("/make", function(req, res){
 });
 
 
-//Creates Json
-app.post("api/new", function(req, res){
-	var newCustomer = req.body;
-	newCustomer.routeName = newcharacter.name.replace(/\s+/g, "").toLowerCase();
+//Creates Json for new customers
+if(customerReady.length <= 4){
+	app.post("/api/ready", function(req, res){
+		var newCustomer = req.body;
 
-	console.log(newCustomer);
+		console.log(newCustomer);
 
-	
-})
+		res.json(newCustomer);
+		customerReady.push(newCustomer);
 
+	});
+} else {
+
+	app.post("api/wait", function(req, res){
+		var newCustomer = req.body;
+		newCustomer.routeName = newcharacter.name.replace(/\s+/g, "").toLowerCase();
+
+		console.log(newCustomer);
+
+		res.json(newCustomer).push(customerWait);
+		customerWait.push(newCustomer);
+
+	});
+}
 
 
 
@@ -48,6 +62,6 @@ app.post("api/new", function(req, res){
 //Starts the server to begin listening
 
 app.listen(PORT, function(){
-	console.log("App is listening on port .. 3000");
+	console.log("App is like.... getting it on port 3000");
 })
 
