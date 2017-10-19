@@ -30,6 +30,7 @@ app.get("/make", function(req, res){
 
 
 //Creates Json for new customers
+
 if(customerReady.length <= 4){
 	app.post("/api/ready", function(req, res){
 		var newCustomer = req.body;
@@ -37,11 +38,11 @@ if(customerReady.length <= 4){
 		console.log(newCustomer);
 
 		res.json(newCustomer);
+
 		customerReady.push(newCustomer);
 
 	});
-} else {
-
+} else{
 	app.post("api/wait", function(req, res){
 		var newCustomer = req.body;
 		newCustomer.routeName = newcharacter.name.replace(/\s+/g, "").toLowerCase();
@@ -49,7 +50,9 @@ if(customerReady.length <= 4){
 		console.log(newCustomer);
 
 		res.json(newCustomer).push(customerWait);
+
 		customerWait.push(newCustomer);
+	
 
 	});
 }
@@ -57,11 +60,9 @@ if(customerReady.length <= 4){
 
 
 
-
-
 //Starts the server to begin listening
 
 app.listen(PORT, function(){
-	console.log("App is like.... getting it on port 3000");
+	console.log("This app is like.... getting it on port 3000");
 })
 
