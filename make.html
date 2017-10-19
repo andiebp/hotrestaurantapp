@@ -2,60 +2,86 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Hot Restaurant</title>
-    <!-- Latest c Wompiled and minified CSS & JS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<meta charset="UTF-8">
+	<title>Hot Restaurant</title>
+	<!-- Latest c Wompiled and minified CSS & JS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 </head>
 
 <body>
 
-    <div class="container">
-        <div class="jumbotron">
-            <h1 class="text-center"><span class="glyphicon glyphicon-fire"></span> Hot Restaurant</h1>
-            <hr>
-            <h3 class="text-center">Make your reservation</h3>
-            <br>
-            <div class="text-center" <a href="/view"><button type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-list-alt"></span> View Tables</button></a>
-                <a href="/home"></a><button type="button" class="btn btn-default btn-lg active"><span class = "glyphicon glyphicon-home"></span></button>
-            </div>
-        </div>
-        <div class="row"></div>
+	<div class="container">
+		<div class="jumbotron">
+			<h1 class="text-center"><span class="glyphicon glyphicon-fire"></span> Hot Restaurant</h1>
+			<hr>
+			<h3 class="text-center">Make your reservation</h3>
+			<br>
+			<div class="text-center" <a href="/view"><button type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-list-alt"></span> View Tables</button></a>
+				<a href="/home"></a><button type="button" class="btn btn-default btn-lg active"><span class = "glyphicon glyphicon-home"></span></button>
+			</div>
+		</div>
+		<div class="row"></div>
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Table Reservations</h3>
-            </div>
-            <div class="panel-body">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Table Reservations</h3>
+			</div>
+			<div class="panel-body">
 
-                <form>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Name</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Phone</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Unique ID</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="uniqueID">
-                    </div>
-                </form>
+				<form>
+					<div class="form-group">
+						<label for="exampleInputEmail1">Name</label>
+						<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Name">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputEmail1">Phone</label>
+						<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Phone">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputEmail1">Email address</label>
+						<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1">Unique ID</label>
+						<input type="password" class="form-control" id="exampleInputPassword1" placeholder="uniqueID">
+					</div>
+				</form>
 
-            </div>
-        </div>
-    </div>
-    </div>
-    </panel>
+			</div>
+		</div>
+	</div>
+	</div>
+	</panel>
+	<script type="text/javascript">
+		$(".submit").on("click", function() {
+					var newReservation = {
+						customerName: $('client_name').val().trim(),
+						phoneNumber: $('client_phone').val().trim(),
+						customerEmail: $('client_email').val().trim(),
+						uniqueId: $('client_id').val().trim()
+					};
+					console.log(newReservation);
 
+					var currentURL = window.location.origin;
+					$.post(currentURL + "/api/table", newReservation,
+						function(data) {
+							if (data == true) {
+								alert("Congratulations! You got a spot!")
+							}
+							if (data == false) {
+								alert("Poop! Better luck next time! In the meantime, enjoy our waiting list.")
+							}
+
+							$('client_name').val("");
+							$('client_phone').val("");
+							$('client_email').val("");
+							$('client_id').val("");
+						});
+
+	</script>
 </body>
 
 </html>
